@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kuroko.me</title>
+    <title>Kokuro.me</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,11 +17,65 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
+     
+   <div class="container theme-showcase" role="main">
+    <div class="jumbotron">
+        <img src="assets/images/kurokome.png">
+        <p>Hi, I'm your kuroko, backend dedicated supporter for your web life!</p>
+    </div>
+    
+    <div class="alert alert-success text-center" role="alert" style="display:none;">
+    <button type="button" class="close" data-dismiss="alert">
+    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+    </button>
+    <strong>Thank you for shopping!</strong>
+    </div>
+    
+    <table class="table">
+    <tbody>
+    <tr>
+    <td style="text-align:center;">
+    <img alt="200x200" class="img-thumbnail" data-src="holder.js/200x100" src="assets/images/wine1.jpg" data-holder-rendered="true">
+    <h3>Standard Set</h3>
+    <h4>$120.00</h4>
+    <form action='checkout' METHOD='GET'>
+    <input  type='image' name='submit' src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif' border='0'  alt='Check out with PayPal'/>
+    <input type="hidden" name="id" value="1">
+    </form>  
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align:center;">
+    <img alt="200x200" class="img-thumbnail" data-src="holder.js/200x100" src="assets/images/wine2.jpg" data-holder-rendered="true">
+    <h3>Recommended</h3>
+    <h4>$31.00</h4>
+    <form action='checkout' METHOD='GET'>
+    <input type='image' name='submit' src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif' border='0'  alt='Check out with PayPal'/>
+    <input type="hidden" name="id" value="2">
+    </form>    
+    </td>
+    </tr>
+    <tr>
+    <td style="text-align:center;">
+    <img alt="200x200" class="img-thumbnail" data-src="holder.js/200x100" src="assets/images/wine3.jpg" data-holder-rendered="true">
+    <h3>Good Values</h3>
+    <h4>$8.00</h4>
+    <form action='checkout' METHOD='GET'>
+    <input type='image' name='submit' src='https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif' border='0'  alt='Check out with PayPal'/>
+    <input type="hidden" name="id" value="3">
+    </form>    
+    </td>
+    </tr>
+    </tbody>    
+    </table>     
+    
+</div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>    
+    
+    
   </body>
 </html>
