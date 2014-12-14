@@ -22,6 +22,7 @@ object Elasticsearch {
     WS.url(baseUrl + convertId(id)).withHeaders("ContentType" -> "application/json").post("""
 {"ok":true,"acknowledged":true}
 """).map { res =>
+      println(res.body)
       res.json
     }
   }
