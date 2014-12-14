@@ -19,9 +19,11 @@ object Elasticsearch {
   //val baseUrl = "http://localhost:9200/"
 
   def createIndex(id: String) = {
-    WS.url(baseUrl + convertId(id)).withHeaders("ContentType" -> "application/json").post("""
+    val url = baseUrl + convertId(id)
+    WS.url(url).withHeaders("ContentType" -> "application/json").post("""
 {"ok":true,"acknowledged":true}
 """).map { res =>
+      println(url)
       println(res.body)
       res.json
     }
