@@ -23,20 +23,18 @@ class Facebook extends Actor {
   }
 
   def getTimeLine() {
-    WS.url("https://api.parse.com/1/classes/FbAuth").withHeaders(
-      "X-Parse-Application-Id" -> "J7dA73X0uR08brr2ebtRa2nMQrMFJaIRMgdfKjrB",
-      "X-Parse-REST-API-Key" -> "J0iA0bh6gmSHaLdf93OsgDJgZNtkusPHQRWthKrQ").get().map { res =>
-        (res.json \ "results").as[List[JsValue]].map { r =>
-          val id = (r \ "userId").as[String]
-          val token = (r \ "auth").as[String]
-          WS.url("https://graph.facebook.com/me/home").withQueryString(
-            "access_token" -> token, "limit" -> "1000").get().map { res =>
-              (res.json \ "data").as[List[JsValue]].map { d =>
-                val key = (d \ "id").as[String]
-                Elasticsearch.insertDocument(id, "facebook", key, d)
-              }
+    Parse.getFbAuth().map { res =>
+      (res.json \ "results").as[List[JsValue]].map { r =>
+        val id = (r \ "userId").as[String]
+        val token = (r \ "auth").as[String]
+        WS.url("https://graph.facebook.com/me/home").withQueryString(
+          "access_token" -> token, "limit" -> "1000").get().map { res =>
+            (res.json \ "data").as[List[JsValue]].map { d =>
+              val key = (d \ "id").as[String]
+              Elasticsearch.insertDocument(id, "facebook", key, d)
             }
-        }
+          }
       }
+    }
   }
 }
