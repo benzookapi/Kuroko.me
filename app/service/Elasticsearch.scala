@@ -27,7 +27,10 @@ object Elasticsearch {
   }
 
   def insertDocument(id: String, service: String, key: String, json: JsValue) = {
-    WS.url(baseUrl + convertId(id) + "/" + service + "/" + key).withHeaders("ContentType" -> "application/json").post(json).map { res =>
+    val url = baseUrl + convertId(id) + "/" + service + "/" + key
+    WS.url(url).withHeaders("ContentType" -> "application/json").post(json).map { res =>
+      println(url)
+      println(res.body)
       res.json
     }
   }
