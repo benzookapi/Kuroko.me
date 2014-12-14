@@ -105,21 +105,16 @@
     
     var fbLogin = function() {
         Parse.FacebookUtils.logIn("read_stream", {
-            success: function(user) {
+            success: function(user) {  
+              $("#s").show();
+              $("#fb").hide();
               if (user.existed()) {
-                  token = user._sessionToken;  
-                  $("#s").show();
-                  $("#fb").hide();
-              } else {                  
-              
+                  token = user._sessionToken;                  
+              } else {                         
                 var FbAuth = Parse.Object.extend("FbAuth");
-                var FbAuth = new FbAuth();
-                 
-                FbAuth.set("userId", user.id);
-                console.log(user);
-                FbAuth.set("auth", user.attributes.authData.facebook.access_token);
-               
-                 
+                var FbAuth = new FbAuth();                 
+                FbAuth.set("userId", user.id);                
+                FbAuth.set("auth", user.attributes.authData.facebook.access_token);                     
                 FbAuth.save(null, {
                   success: function(fbAuth) {
                     // Execute any logic that should take place after the object is saved.
@@ -139,9 +134,7 @@
                     success: function(msg){
                        fbLogin();
                     }
-                  });
-                
-            
+                  });            
                 
               }
             },
@@ -152,12 +145,14 @@
     };
     
     function search() {
+        $("#rs").empty();
+        $("#rs").append("<img src=\"assets/images/load_l.gif\">");
                  $.ajax({
                     type: "GET",
                     url: "search",
                     data: "token=" + token + "&query=" + $("#q").val(),
-                    success: function(res){
-                        $("#rs").empty();
+                    success: function(res){    
+                      $("#rs").empty();
                       var json = eval(res)
                       var size =json.length;
                       for (var i =0; i<size; i++) {                          
