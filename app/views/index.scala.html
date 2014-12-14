@@ -36,7 +36,7 @@
    <div class="input-group" id="s" style="display:none;">
   <input type="text" class="form-control" id="q">
   <span class="input-group-addon">
-  <span class="glyphicon glyphicon-search" aria-hidden="true" onclick="search();"></span>
+  <span class="glyphicon glyphicon-search" aria-hidden="true" onclick="search();" style="cursor:pointer"></span>
   </span>
    </div>
    
@@ -175,6 +175,13 @@
                   });
          
   }   
+    
+    $( '#q' ).keypress(function(e){
+        if (e.which == 13) {
+            search();
+            return false;
+        }
+    });
     
   </script>
     
