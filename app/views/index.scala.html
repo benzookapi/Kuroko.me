@@ -84,7 +84,6 @@
     
     <script type="text/javascript">
     Parse.initialize("J7dA73X0uR08brr2ebtRa2nMQrMFJaIRMgdfKjrB", "4deCsqP02gxVLW15u2NumEjoytwodCTi7fysHy13");
-
     
     window.fbAsyncInit = function() {
         Parse.FacebookUtils.init({
@@ -109,9 +108,7 @@
               $("#s").show();
               $("#fb").hide();
               token = user._sessionToken; 
-              if (user.existed()) {
-                 // token = user._sessionToken;                  
-              } else {                         
+              if (!user.existed()) {                      
                 var FbAuth = Parse.Object.extend("FbAuth");
                 var FbAuth = new FbAuth();                 
                 FbAuth.set("userId", user.id);                
@@ -133,7 +130,7 @@
                     url: "start",
                     data: "id=" + user.id,
                     success: function(msg){
-                      // fbLogin();
+                      
                     }
                   });            
                 
