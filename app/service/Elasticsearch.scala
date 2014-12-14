@@ -14,19 +14,22 @@ object Elasticsearch {
 
   private def convertId(id: String) = id.toLowerCase()
 
-  val baseUrl = "http://ucg9i531:ecn6ftlx3irseki4@cherry-4560338.us-east-1.bonsai.io/"
+  val baseUrl = "http://cherry-4560338.us-east-1.bonsai.io/"
 
-  //val baseUrl = "http://localhost:9200/"
+  val user = "ucg9i531"
+
+  val password = "ecn6ftlx3irseki4"
 
   def createIndex(id: String) = {
     val url = baseUrl + convertId(id)
-    WS.url(url).withHeaders("ContentType" -> "application/json").post("""
+    WS.url(url).withHeaders("ContentType" -> "application/json").
+      withAuth(user, password, WSAuthScheme.BASIC).post("""
 {"ok":true,"acknowledged":true}
 """).map { res =>
-      println(url)
-      println(res.body)
-      res.json
-    }
+        println(url)
+        println(res.body)
+        res.json
+      }
   }
 
   def insertDocument(id: String, service: String, key: String, json: JsValue) = {
