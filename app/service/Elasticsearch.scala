@@ -34,11 +34,12 @@ object Elasticsearch {
 
   def insertDocument(id: String, service: String, key: String, json: JsValue) = {
     val url = baseUrl + convertId(id) + "/" + service + "/" + key
-    WS.url(url).withHeaders("ContentType" -> "application/json").post(json).map { res =>
-      println(url)
-      println(res.body)
-      res.json
-    }
+    WS.url(url).withHeaders("ContentType" -> "application/json").
+      withAuth(user, password, WSAuthScheme.BASIC).post(json).map { res =>
+        println(url)
+        println(res.body)
+        res.json
+      }
   }
 
   def search(token: String, service: String, query: String) = {
@@ -50,29 +51,30 @@ object Elasticsearch {
         val id = (res.json \ "objectId").as[String]
         val url = baseUrl + convertId(id) + "/" + service + "/_search"
         println(url)
-        WS.url(url).withQueryString("q" -> query).get().map { res =>
-          println(res.body)
-          val str = "[" + (res.json \ "hits" \ "hits").as[List[JsValue]].map { d =>
-            val fbId = (d \ "_id").as[String]
-            val title = ((d \ "_source" \ "description").asOpt[String] match {
-              case Some(s) => s
-              case _ => (d \ "_source" \ "message").asOpt[String] match {
+        WS.url(url).withQueryString("q" -> query).
+          withAuth(user, password, WSAuthScheme.BASIC).get().map { res =>
+            println(res.body)
+            val str = "[" + (res.json \ "hits" \ "hits").as[List[JsValue]].map { d =>
+              val fbId = (d \ "_id").as[String]
+              val title = ((d \ "_source" \ "description").asOpt[String] match {
+                case Some(s) => s
+                case _ => (d \ "_source" \ "message").asOpt[String] match {
+                  case Some(s) => s
+                  case _ => ""
+                }
+              }).replaceAll("\"", "").replaceAll("\n", "")
+              val img = (d \ "_source" \ "picture").asOpt[String] match {
                 case Some(s) => s
                 case _ => ""
               }
-            }).replaceAll("\"", "").replaceAll("\n", "")
-            val img = (d \ "_source" \ "picture").asOpt[String] match {
-              case Some(s) => s
-              case _ => ""
-            }
-            "{" +
-              " link : \"https://www.facebook.com/" + fbId.replace("_", "/posts/") + "\", " +
-              " title : \"" + title + "\", " +
-              " img : \"" + img + "\" " +
-              "}"
-          }.mkString(",") + "]"
-          str
-        }
+              "{" +
+                " link : \"https://www.facebook.com/" + fbId.replace("_", "/posts/") + "\", " +
+                " title : \"" + title + "\", " +
+                " img : \"" + img + "\" " +
+                "}"
+            }.mkString(",") + "]"
+            str
+          }
 
       }
 
