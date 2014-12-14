@@ -14,6 +14,6 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
     val actor = Akka.system.actorOf(Props(new Facebook), "facebook")
-    Akka.system.scheduler.schedule(0.milliseconds, 1.minutes, actor, "check")
+    Akka.system.scheduler.schedule(0.milliseconds, 10.minutes, actor, "check")
   }
 }
