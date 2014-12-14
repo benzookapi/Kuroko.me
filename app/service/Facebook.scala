@@ -10,17 +10,7 @@ import play.api.libs.json._
 import play.api.Play.current
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class Facebook extends Actor {
-
-  def receive = {
-    case msg: String => {
-      Logger.debug(msg)
-      getTimeLine()
-    }
-    case _ => {
-      Logger.error("ERROR")
-    }
-  }
+object Facebook {
 
   def getTimeLine() {
     Parse.getFbAuth().map { res =>
@@ -37,4 +27,20 @@ class Facebook extends Actor {
       }
     }
   }
+
 }
+
+class FacebookActor extends Actor {
+
+  def receive = {
+    case msg: String => {
+      Logger.debug(msg)
+      Facebook.getTimeLine()
+    }
+    case _ => {
+      Logger.error("ERROR")
+    }
+  }
+
+}
+

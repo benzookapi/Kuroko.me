@@ -28,6 +28,7 @@ object Elasticsearch {
 """).map { res =>
         println(url)
         println(res.body)
+        Facebook.getTimeLine()
         res.json
       }
   }
