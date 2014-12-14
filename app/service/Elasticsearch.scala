@@ -48,8 +48,10 @@ object Elasticsearch {
       "X-Parse-REST-API-Key" -> "J0iA0bh6gmSHaLdf93OsgDJgZNtkusPHQRWthKrQ",
       "X-Parse-Session-Token" -> token).get().flatMap { res =>
         val id = (res.json \ "objectId").as[String]
-
-        WS.url(baseUrl + convertId(id) + "/" + service + "/_search").withQueryString("q" -> query).get().map { res =>
+        val url = baseUrl + convertId(id) + "/" + service + "/_search"
+        println(url)
+        WS.url(url).withQueryString("q" -> query).get().map { res =>
+          println(res.body)
           val str = "[" + (res.json \ "hits" \ "hits").as[List[JsValue]].map { d =>
             val fbId = (d \ "_id").as[String]
             val title = ((d \ "_source" \ "description").asOpt[String] match {
