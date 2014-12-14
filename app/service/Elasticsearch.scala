@@ -14,7 +14,7 @@ object Elasticsearch {
 
   private def convertId(id: String) = id.toLowerCase()
 
-  val baseUrl = "https://ucg9i531:ecn6ftlx3irseki4@cherry-4560338.us-east-1.bonsai.io:443/"
+  val baseUrl = "https://ucg9i531:ecn6ftlx3irseki4@cherry-4560338.us-east-1.bonsai.io/"
 
   //val baseUrl = "http://localhost:9200/"
 
