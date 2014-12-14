@@ -123,7 +123,8 @@
                 FbAuth.save(null, {
                   success: function(fbAuth) {
                     // Execute any logic that should take place after the object is saved.
-                    alert('New object created with objectId: ' + fbAuth.id);
+                   // alert('New object created with objectId: ' + fbAuth.id);
+                      fbLogin();
                   },
                   error: function(fbAuth, error) {
                     // Execute any logic that should take place if the save fails.
